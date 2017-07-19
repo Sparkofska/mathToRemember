@@ -1,0 +1,365 @@
+%% Latest change: Thu Mar 11 18:06:33 CET 2010
+\documentclass[a4paper]{scrartcl}
+
+\usepackage{ucs}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+
+\usepackage{math} % Prof. Paulus' convenient math symbols
+
+\begin{document}
+
+\title{Math To Remember}
+\author{Jonas Münch}
+\date{\today}
+
+\maketitle
+
+\tableofcontents
+
+%\begin{abstract}
+%This is my abstract.
+%\end{abstract}
+
+\section{Gauß-Funktion}
+\[
+  G_{\sigma, \mu} (x) = \frac{1}{\sqrt{2 \pi \sigma^2}}e^{-\frac{(x - \mu)^2}{2 \sigma^2}}
+\]
+
+\paragraph{Multidimensional}
+Mit der Kovarianzmatrix $\mat{\Sigma}$ und dem Erwartungswertvektor $\vec{\mu}$ im $n$-dimensionalen:
+\[
+  G_{\mat{\Sigma}, \vec{\mu}} (\vec{x}) = 
+  \frac{1}{\sqrt{(2 \pi)^n \determinant{\mat{\Sigma}}}}\funv{exp}\left( -\half \transpose{(\vec{x}-\vec{\mu})} \mat{\Sigma}^{-1} (\vec{x}-\vec{\mu})\right)
+\]
+$\transpose{(\vec{x}-\vec{\mu})} \mat{\Sigma}^{-1} (\vec{x}-\vec{\mu})$ ist hierbei die \emph{Mahalanobis-Distanz} und gibt die quadratische statistische Distanz von \vec{x} zu \vec{\mu} an.
+
+\section{Bayes-Formel}
+
+\[
+  P(B|A) = \frac{P(B) \cdot P(A|B)}{P(A)}
+\]
+
+\section{Ableitungsregeln}
+
+\paragraph{Produktregel}
+\begin{align*}
+    f(x) &= g(x) \cdot h(x) \\
+    f'(x) &= g'(x) \cdot h(x) + g(x) \cdot h'(x)
+\end{align*}
+
+\paragraph{Quotientenregel}
+\begin{align*}
+    f(x) &= \frac{g(x)}{h(x)} \\
+    f'(x) &= \frac{g'(x) \cdot h(x) - g(x) \cdot h'(x)}{h(x)^2}
+\end{align*}
+
+\paragraph{Kettenregel}
+\begin{align*}
+    f(x) &= g((h(x)) \\
+    f'(x) &= g'(h(x)) \cdot h'(x)
+\end{align*}
+
+
+\section{Integrationsregeln}
+
+\paragraph{Partielle Integration / Produktintegration}
+\begin{align*}
+  \int u(x) \cdot v(x) dx &= u(x) \cdot v(x) - \int u'(x) \cdot v(x) dx
+\end{align*}
+
+\section{Jacobi-Matrix}
+
+Für eine Funktion $ f: \defunran{\real^n}{\real^m}$ gibt die \emph{Jacobi-Matrix}
+\[
+  \mat{J}_f(x) = \begin{Matrix}(3, 3)
+    \frac{\partial f_1}{\partial x_1}
+    &
+    \ldots
+    & 
+    \frac{\partial f_1}{\partial x_n}
+  \\ \vdots & \ddots & \vdots \\
+    \frac{\partial f_m}{\partial x_1}
+    &
+    \ldots
+    &
+    \frac{\partial f_m}{\partial x_n}
+  \end{Matrix}
+\]
+die ersten partiellen Ableitungen an.
+
+\section{Gradient, Divergenz, Laplace-Operator}
+
+\paragraph{Gradient}
+\begin{align*}
+&  f: \defunvar{\real^2}{\real}
+  \\
+&  \nabla f(x, y) = \colvec(\frac{\partial f(x, y)}{\partial x}, \frac{\partial f(x, y)}{\partial y})
+\end{align*}
+
+\paragraph{Divergenz}
+\begin{align*}
+&  f: \defunvar{\real^2}{\real^2} \textrm{(Vektorfeld)}
+  \\
+&  \nabla f(x, y) = \frac{\partial f_x(x, y)}{\partial x} + \frac{\partial_y f(x, y)}{\partial y}
+\end{align*}
+
+\paragraph{Laplace Operator}
+\begin{align*}
+&  f: \defunvar{\real^2}{\real}
+  \\
+&  \nabla^2 = \bigtriangleup f(x, y) = \colvec(\frac{\partial^2 f(x, y)}{\partial x^2}, \frac{\partial^2 f(x, y)}{\partial y^2})
+\end{align*}
+
+\section{Strukturtensor}
+
+Der \emph{Strukturtensor} bildet sich aus dem Gradienten $\nabla$
+\[
+  J_0(\nabla_\varphi) := \nabla \varphi \cdot \transpose{\nabla \varphi}
+\]
+Seine Eigenvektoren/-werte haben folgende Eigenschaften:
+\begin{align*}
+&  \vec{v}_1 \parallel \nabla \varphi &  \lambda_1 &= \| \nabla \varphi  \|^2 \\
+&  \vec{v}_2 \perp \nabla \varphi &  \lambda_2 &= 0 \\
+\end{align*}
+
+\section{Hesse-Matrix}
+
+Für eine Funktion $f:\defunran{\real^n}{\real}$ werden die zweiten partiellen ableitungen mit der \emph{Hesse-Matrix} angegeben. Hier das Beispiel für 2D:
+\[
+  \mat{H}_f(i\vec{x}) = \begin{Matrix}(2, 2) 
+    \frac{\partial^2 f}{\partial x_1 \partial x_1} 
+    & 
+    \frac{\partial^2 f}{\partial x_1 \partial x_2} 
+  \\
+    \frac{\partial^2 f}{\partial x_1 \partial x_2} 
+    &
+    \frac{\partial^2 f}{\partial x_2 \partial x_2} 
+  \end{Matrix}
+\]
+
+
+\section{Mapping}
+
+Folgende Funktion bildet einen Wert $v$ von $[a_{in}, b_{in}]$ auf $[a_{out}, b_{out}]$ ab.
+
+\[
+  \funv{map}(v, a_{in}, b_{in}, a_{out}, b_{out})
+  =
+  \frac{ (v - a_{in}) }{ (b_{in} - a_{in}) } \cdot (b_{out} - a_{out}) + a_{out}
+\]
+
+\section{Rotation mit Quaternionen}
+
+Wird ein Punkt $\vec{p}$ als Quaternion $\vec{p}^q$ ausgedrückt, so kann er mit dem Rotationsquaternion $r$ rotiert werden.
+
+\begin{align*}
+  r &= \left( \cos\left(\frac{\theta}{2}\right), \sin\left(\frac{\theta}{2}\right) \cdot \transpose{\vec{u}} \right) & \textrm{mit \transpose{\vec{u}}: rot.-Achse, $\theta$: rot.-Winkel}
+\\
+  \vec{p}^q &= \left( 0, \transpose{\vec{p}} \right) & 0: \textrm{arbitrary scalar factor}
+\\
+\vec{p}^q_{\textrm{rot}} &= r \cdot \vec{p}^q \cdot \bar{r} & \bar{r} = w-xi-yj-zk \textrm{(konjugiertes Quaternion)}
+\end{align*}
+
+\section{Rotationsmatrizen}
+\paragraph{2D}
+
+\[
+  \mat{R} = \begin{Matrix}(2, 2) \cos \alpha & -\sin \alpha \\ \sin \alpha & \cos \alpha \end{Matrix}
+\]
+
+\paragraph{3D}
+\begin{align*}
+  \mat{R}_x =
+  \begin{Matrix}(3, 3)
+    1 & 0 & 0 \\
+    0 & \cos \alpha & - \sin \alpha \\
+    0 & \sin \alpha & \cos \alpha
+  \end{Matrix}, 
+&
+  \mat{R}_y =
+  \begin{Matrix}(3, 3)
+    \cos \alpha & 0 & \sin \alpha \\
+    0 & 1 & 0 \\
+    - \sin \alpha & 0 & \cos \alpha
+  \end{Matrix}, 
+&
+  \mat{R}_z =
+  \begin{Matrix}(3, 3)
+    \cos \alpha & - \sin \alpha  & 0 \\
+    \sin \alpha & \cos \alpha & 0 \\
+    0 & 0 & 1
+  \end{Matrix}
+\end{align*}
+
+\section{Kreuzproduktmatrix}
+
+Das Kreuzprodukt zweier Vektoren $\vec{v} \vecprod \vec{w}$ kann durch die \emph{Kreuzproduktmatrix} $[\vec{v}]_{\vecprod}$ dargestellt werden.
+\begin{align*}
+  \vec{v} \vecprod \vec{w} &= [\vec{v}]_{\vecprod} \vec{w}\\
+  \colvec(v_1, v_2, v_3) \vecprod \colvec(w_1, w_2, w_3) &=
+  \begin{Matrix}(3,3)
+    0 & -v_3 & v_2 \\ v_3 & 0 & -v_1 \\ -v_2 & v_1 & 0
+  \end{Matrix}
+  \colvec(w_1, w_2, w_3) &=
+  \colvec(-v_3w_2 + v_2w_3, v_3w_1 - v_1w_3, -v_2w_1 + v_1w_2)
+\end{align*}
+  
+\section{Vektormultiplikation}
+\begin{align*}
+  \transpose{\vec{a}} \vec{a} &= a & \textnormal{(Skalarprodukt)}
+\\
+  &= a_1^2 + a_2^2 + a_3^2
+\\
+  \vec{a} \transpose{\vec{a}} &= \mat{M}
+\\
+  &= \colvec(a_1, a_2, a_3) \rowvec(a_1, a_2, a_3) = 
+  \begin{Matrix}(3, 3)
+    a_1^2 & a_1a_2 & a_1a_3 \\
+    a_1a_2 & a_2^2 & a_2a_3 \\
+    a_1a_3 & a_2a_3 & a_3^3
+  \end{Matrix}
+\end{align*}
+
+
+\section{Kovarianzmatrix}
+\begin{align*}
+  \vec{\mu} &= \frac{1}{n} \sum_{i=0}^n \vec{x}_i   & \textnormal{Erwartungswert}
+\\
+  \mat{\Sigma}(\vec{x}) &= \frac{1}{n} \sum_{i=0}^n (\vec{x}_i-\vec{\mu})\transpose{(\vec{x}_i-\vec{\mu})}
+  & \textnormal{Kovarianzmatrix}
+\end{align*}
+
+\paragraph{Eigenwerte}
+
+Wird die Kovarianzmatrix in ihre Eigenwerte $\lambda_i$ und Eigenvektoren $\vec{e}_i$ zerlegt,
+\[
+  \mat{\Sigma} \vec{e}_i = \lambda_i \vec{e}_i
+\]
+so sind die
+\begin{itemize}
+  \item Eigenvektoren $\vec{e}_i$ die Achsen des aufgespannten Ellipsoids
+  \item Eigenwerte $\lambda_i$ proportional zur Länge der Achsen
+\end{itemize}
+
+\section{Hauptkomponentenanalyse (PCA)}
+
+\section{Ebene durch Punkte (Plane fitting)}
+
+Um eine Ebene mit minimalem quadratischem Fehler durch eine Menge von Punkten zu legen, wird die Matrix $ \mat{A} = \transpose{(\vec{p}_1 \vec{p}_2 \ldots \vec{p}_n)}$ mit $n \geq 3$ zentrierten Punkten $\vec{p}_i := \vec{p}_i - \vec{\mu}$ aufgestellt. 
+Die Singulärwertzerlegung $\mat{A} = \mat{U} \mat{\Sigma} \transpose{\mat{V}}$ wird angewandt, sodass die Ebene von den ersten beiden Spaltenvektoren der Matrix \mat{U} aufgespannt wird und der dritte Spaltenvektor die Normale darstellt.
+
+Alternativ kann die Matrix \mat{A} mit den projektiven Punkten $\tilde{\vec{p}_i}$ aufgestellt werden. Nun bildet der Spaltenvektor aus \mat{V}, der zum kleinsten Singulärwert gehört, die Normale der Ebene.
+
+\section{Homografie}
+%TODO
+Siehe BV3 Vorlesungsfolien Kapitel 10
+
+\section{SVD (Singulärwertzerlegung)}
+
+Jede Matrix $\mat{A} \in \real^{n \vecprod m} $ kann in
+\[
+  \mat{A} = \mat{U} \mat{\Sigma} \transpose{\mat{V}}
+\]
+zerlegt werden, wobei
+\begin{itemize}
+  \item $ \mat{U} \in \real^{n \vecprod n} $ und $ \mat{V} \in \real^{m \vecprod m} $ orthogonal
+  \item $ \mat{\Sigma} \in \real^{n \vecprod m}  = 
+    \begin{Matrix}(4, 4)
+      \sigma_1 & 0 & 0 & 0 \\
+      0 & \sigma_2 & 0 & 0 \\
+      0 & 0 & \ddots & \vdots \\
+      0 & 0 & \ldots & \sigma_{min(m,n)}
+    \end{Matrix} $
+
+  \item $ \sigma_i $ sind die Singulärwerte $ \sigma_1 \geq \sigma_2 \geq \ldots \geq \sigma_{min(m,n)} \geq 0 $
+\end{itemize}
+
+Die SVD kann für viele Probleme der linearen Algebra genutzt werden. Hier einige Eigenschaften:
+\begin{itemize}
+  \item Rang von \mat{A}: $\funv{rank}(\mat{A}) = \#\{\sigma_i > 0\}$
+  \item Kern von \mat{A} (Nullraum): Aufgespannt von den Spaltenvektoren $\vec{v}_i$ von \mat{V} deren $\sigma_i = 0 $ 
+  \item
+  \item \vdots TODO
+\end{itemize}
+
+\section{Eigenwerte 2x2 Matrix}
+
+Die Eigenwerte einer $2 \vecprod 2$-Matrix
+$
+  \mat{A} = \begin{Matrix}(2,2) a & b \\ c & d \end{Matrix}
+$
+können in einer geschlossenen Form berechnet werden:
+\begin{align*}
+  \mat{A} \vec{v} &= \lambda \vec{v} \\
+  \begin{Matrix}(2,2) a & b \\ c & d \end{Matrix} \colvec(u, v) &= \lambda \colvec(u, v)
+\\
+  \begin{Matrix}(2,2) a & b \\ c & d \end{Matrix} \colvec(u, v) &= \begin{Matrix}(2,2) \lambda & 0 \\ 0 & \lambda \end{Matrix} \colvec(u, v)
+\\
+  \left( \begin{Matrix}(2,2) a & b \\ c & d \end{Matrix} - \begin{Matrix}(2,2) \lambda & 0 \\ 0 & \lambda \end{Matrix} \right) \colvec(u, v) &= 0
+\\ \vdots \\
+  \lambda ^2 - \funv{sp}(\mat{A}) \lambda + \determinant{\mat{A}} &= 0
+\\ \\
+  \lambda_{1/2} &= \half \left( \funv{sp}(\mat{A}) \pm \sqrt{\funv{sp}(\mat{A})^2 - 4\determinant{\mat{A}}} \right)
+\end{align*}
+Die Eigenvektoren lassen sich dann folgendermaßen bestimmen:
+\[
+  (\mat{A} - \lambda_{1/2} \mat{I}) \cdot \vec{x} = \vec{0}
+\]
+
+\section{Koordinatentransformation}
+
+\section{Taylor-Approximation}
+
+A $k$ times differentiable function can be approximated by polynomials.
+
+\begin{align*}
+  Tf(x, a) &= \sum_{n=0}^\infty \frac{f^{(n)}(a)}{n!}(x-a)^n
+\\
+  &= f(a) + f'(a)(x-a) + \frac{f''(a)}{2}(x-a)^2 + \frac{f'''(a)}{6}(x-a)^3 + \dots
+\end{align*}
+
+\section{Fourier-Transformation}
+
+Jede periodische Funktion
+\[
+  f(x) = f(x + T), T = 2\pi
+\]
+
+kann in $\sin$ und $\cos$ Funktionen zerlegt werden.
+
+\[
+  f(x) = \frac{a_0}{2} + \sum_{k=1}^\infty a_k \cos(kx) + b_k \sin(kx)
+\]
+
+Die Koeffizienten können mit
+\begin{align*}
+  a_0 &= \frac{1}{\pi} \int_0^{2\pi} f(x) dx \\
+  a_k &= \frac{1}{\pi} \int_0^{2\pi} f(x) \cos(x) dx \\
+  b_k &= \frac{1}{\pi} \int_0^{2\pi} f(x) \sin(x)dx
+\end{align*}
+bestimmt werden.
+
+In Complexen Zahlen ausgedrückt:
+\[
+  F(u) = \int_{-\infty}^\infty f(x) e^{-2 \pi i u x} \funv{d}ux
+\]
+
+Inverse Fourier Transformation
+\[
+  f(x) = \int_{-\infty}^\infty F(u) e^{2 \pi i x u} \funv{d}u
+\]
+
+2D-Fourier-Transformation
+\[
+  FT_2(f)(u, v) = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} f(x,y)e^{-2 \pi i (xu+yv)}\funv{d}x\funv{d}y
+\]
+
+\section{Entropie}
+
+\[
+  H = - \sum_{i=0}^N p_i \cdot \funv{ln}(p_i)
+\]
+
+\end{document}
+://drive.google.com/file/d/0B41UhTfm4XbpWkU1VmJRQXNwNmM/view?usp=sharing
