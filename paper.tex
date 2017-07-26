@@ -34,7 +34,7 @@ Mit der Kovarianzmatrix $\mat{\Sigma}$ und dem Erwartungswertvektor $\vec{\mu}$ 
 \]
 $\transpose{(\vec{x}-\vec{\mu})} \mat{\Sigma}^{-1} (\vec{x}-\vec{\mu})$ ist hierbei die \emph{Mahalanobis-Distanz} und gibt die quadratische statistische Distanz von \vec{x} zu \vec{\mu} an.
 
-\section{Bayes-Formel}
+\section{Satz von Bayes}
 
 \[
   P(B|A) = \frac{P(B) \cdot P(A|B)}{P(A)}
@@ -65,12 +65,13 @@ $\transpose{(\vec{x}-\vec{\mu})} \mat{\Sigma}^{-1} (\vec{x}-\vec{\mu})$ ist hier
 
 \paragraph{Partielle Integration / Produktintegration}
 \begin{align*}
-  \int u(x) \cdot v(x) dx &= u(x) \cdot v(x) - \int u'(x) \cdot v(x) dx
+  \int_a^b f'(x) \cdot g(x) d x &= [f(x) \cdot g(x)]_a^b - \int_a^b f(x) \cdot g'(x) d x \\
+  &= f(b) \cdot g(b) - f(a) \cdot g(a) - \int_a^b f(x) \cdot g'(x) d x 
 \end{align*}
 
 \section{Jacobi-Matrix}
 
-Für eine Funktion $ f: \defunran{\real^n}{\real^m}$ gibt die \emph{Jacobi-Matrix}
+Für eine Funktion $ f: \defunran{\real^n}{\real^m}$ gibt die \emph{Jacobi-Matrix} (Auch \emph{Ableitungsmatrix} genannt)
 \[
   \mat{J}_f(x) = \begin{Matrix}(3, 3)
     \frac{\partial f_1}{\partial x_1}
@@ -308,6 +309,25 @@ Die Eigenvektoren lassen sich dann folgendermaßen bestimmen:
 \]
 
 \section{Koordinatentransformation}
+
+Seien
+\begin{itemize}
+  \item[$C$] Koordinatensystem
+  \item[$E$] Koordinatensystem, gegeben in $C$
+  \item[$\vec{e}_i$] Basisvektoren von $E$, gegeben in $C$
+  \item[$\vec{p}$] Punkt $\vec{p}_C, \vec{p}_E = \transpose{\rowvec(x_1, \dots, x_n )}$
+\end{itemize}
+so kann \vec{p} einem Basiswechsel unterzogen werden:
+
+\begin{align*}
+  \vec{p}_E &= \colvec({\langle \vec{e}_1, \vec{p}_C \rangle}, \vdots, {\langle \vec{e}_n, \vec{p}_C \rangle}) & \textrm{Skalarprodukt}
+  \\
+  \vec{p}_E &= \colvec(\transpose{\vec{e}_1}, \vdots, \transpose{\vec{e}_n}) \cdot \vec{p}_C & \textrm{(Basisvektoren als Zeilen)}
+  \\ \\
+  \vec{p}_C &= x_{1, E} \cdot \vec{e_1} + \dots + x_{n, E} \cdot \vec{e}_n & \textrm{Linearkombination}
+  \\
+  \vec{p}_C &= \begin{Matrix}(1,3) \vec{e}_1 & \dots & \vec{e}_n \end{Matrix} \cdot \vec{p}_E & \textrm{(Basisvektoren als Spalten)}
+\end{align*}
 
 \section{Taylor-Approximation}
 
